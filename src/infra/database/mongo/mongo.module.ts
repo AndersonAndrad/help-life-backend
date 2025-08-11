@@ -1,9 +1,4 @@
-import {
-  Logger,
-  Module,
-  OnApplicationBootstrap,
-  OnApplicationShutdown,
-} from '@nestjs/common';
+import { Logger, Module, OnApplicationBootstrap, OnApplicationShutdown } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import mongoose, { Model } from 'mongoose';
 import { MongoConnectionService } from './services/mongo-connection.service';
@@ -11,9 +6,7 @@ import { MongoConnectionService } from './services/mongo-connection.service';
 @Module({
   providers: [MongoConnectionService, ConfigService],
 })
-export class MongoModule
-  implements OnApplicationBootstrap, OnApplicationShutdown
-{
+export class MongoModule implements OnApplicationBootstrap, OnApplicationShutdown {
   private readonly logger = new Logger('MongoDbModule');
 
   constructor(private readonly connectionService: MongoConnectionService) {}
@@ -24,16 +17,12 @@ export class MongoModule
         autoIndex: true,
       })
       .then(async () => {
-        this.logger.verbose(
-          `MongoDb connected successfully -> ${this.connectionService.uri} `,
-        );
+        this.logger.verbose(`MongoDb connected successfully -> ${this.connectionService.uri} `);
 
         await this.syncIndex();
       })
       .catch((error) => {
-        this.logger.error(
-          `MongoDb connection error: -> ${error}: ${this.connectionService.uri}`,
-        );
+        this.logger.error(`MongoDb connection error: -> ${error}: ${this.connectionService.uri}`);
       });
   }
 
@@ -59,9 +48,7 @@ export class MongoModule
       if (result.status === 'fulfilled') {
         this.logger.verbose(`${modelName}: indexes synced successfully`);
       } else {
-        this.logger.error(
-          `${modelName}: Failed to sync indexes - ${result.reason}`,
-        );
+        this.logger.error(`${modelName}: Failed to sync indexes - ${result.reason}`);
       }
     });
   }

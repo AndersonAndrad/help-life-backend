@@ -28,8 +28,14 @@ export class MongoosePurchaseMarketRepository implements PurchaseMarketRepositor
     return formatMongoDocuments(purchaseMarket);
   }
 
-  updateOne(id: string, entity: PurchaseMakert): Promise<PurchaseMakert> {
-    throw new Error('Method not implemented.');
+  async updateOne(id: string, entity: PurchaseMakert): Promise<PurchaseMakert> {
+    const updatedPurchaseMarket = await PurchaseMarketModel.findByIdAndUpdate(id, entity, { new: true, runValidators: true }).exec();
+
+    if (!updatedPurchaseMarket) {
+      throw new NotFoundException(`Purchase market with ID ${id} not found`);
+    }
+
+    return formatMongoDocuments(updatedPurchaseMarket);
   }
 
   async delete(id: string): Promise<void> {

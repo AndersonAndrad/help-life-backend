@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { PurchaseMakert } from 'src/core/types/purchase-market.interface';
 import { CreatePurchaseMarketDto } from '../dto/create-purchase-market.dto';
 import { CrudPurchaseMarketService } from '../services/crud-purchase-market.service';
@@ -10,5 +10,10 @@ export class CrudPurchaseMarketController {
   @Post()
   create(@Body() purchaseMarket: CreatePurchaseMarketDto): Promise<PurchaseMakert> {
     return this.crudPurchaseMarketService.create(purchaseMarket);
+  }
+
+  @Get(':purchaseMarketId')
+  findOne(@Param('purchaseMarketId') purchaseMarketId: string): Promise<PurchaseMakert> {
+    return this.crudPurchaseMarketService.findOne(purchaseMarketId);
   }
 }

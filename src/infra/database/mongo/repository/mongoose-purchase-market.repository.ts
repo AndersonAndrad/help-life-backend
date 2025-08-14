@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PurchaseMarketRepository } from 'src/core/repository/purchase-market.interface';
 import { PurchaseMakert } from 'src/core/types/purchase-market.interface';
 import { formatMongoDocuments } from 'src/core/utils/mongoose.utils';
@@ -18,8 +18,14 @@ export class MongoosePurchaseMarketRepository implements PurchaseMarketRepositor
     throw new Error('Method not implemented.');
   }
 
-  findOne(id: string): Promise<PurchaseMakert> {
-    throw new Error('Method not implemented.');
+  async findOne(id: string): Promise<PurchaseMakert> {
+    const purchaseMarket = await PurchaseMarketModel.findById(id).exec();
+
+    if (!purchaseMarket) {
+      throw new NotFoundException(`Purchase market with ID ${id} not found`);
+    }
+
+    return formatMongoDocuments(purchaseMarket);
   }
 
   updateOne(id: string, entity: PurchaseMakert): Promise<PurchaseMakert> {

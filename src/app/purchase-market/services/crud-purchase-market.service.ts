@@ -9,4 +9,8 @@ export class CrudPurchaseMarketService {
   create(purchaseMarket: Omit<PurchaseMakert, '_id'>): Promise<PurchaseMakert> {
     return this.purchaseMarketRepository.create(purchaseMarket);
   }
+
+  findOne(id: string): Promise<PurchaseMakert> {
+    return this.purchaseMarketRepository.findOne(id);
+  }
 }

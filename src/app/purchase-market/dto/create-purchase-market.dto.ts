@@ -1,6 +1,6 @@
 import { Type } from 'class-transformer';
-import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsPositive, IsString, Min, ValidateNested } from 'class-validator';
-import { PurchaseItem } from 'src/core/types/purchase-market.interface';
+import { ArrayMinSize, IsArray, IsBoolean, IsEmail, IsEnum, IsNotEmpty, IsNumber, IsPositive, IsString, Min, ValidateNested } from 'class-validator';
+import { Permittion, PurchaseItem } from 'src/core/types/purchase-market.interface';
 
 export class PurchaseItemDto implements PurchaseItem {
   @IsString()
@@ -29,6 +29,20 @@ export class PurchaseItemDto implements PurchaseItem {
   totalPrice: number;
 }
 
+export class PurchaseMarketEmailDto {
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+  @IsArray()
+  @ArrayMinSize(1)
+  @IsEnum(Permittion, { each: true })
+  permittions: Permittion[];
+
+  @IsBoolean()
+  creator: boolean;
+}
+
 export class CreatePurchaseMarketDto {
   @IsString()
   @IsNotEmpty()
@@ -43,4 +57,10 @@ export class CreatePurchaseMarketDto {
   @ValidateNested({ each: true })
   @Type(() => PurchaseItemDto)
   items: PurchaseItemDto[];
+
+  @IsArray()
+  @ArrayMinSize(1)
+  @ValidateNested({ each: true })
+  @Type(() => PurchaseMarketEmailDto)
+  emails: PurchaseMarketEmailDto[];
 }

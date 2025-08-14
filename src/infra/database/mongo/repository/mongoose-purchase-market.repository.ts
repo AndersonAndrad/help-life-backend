@@ -32,7 +32,11 @@ export class MongoosePurchaseMarketRepository implements PurchaseMarketRepositor
     throw new Error('Method not implemented.');
   }
 
-  delete(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(id: string): Promise<void> {
+    const result = await PurchaseMarketModel.findByIdAndDelete(id).exec();
+
+    if (!result) {
+      throw new NotFoundException(`Purchase market with ID ${id} not found`);
+    }
   }
 }

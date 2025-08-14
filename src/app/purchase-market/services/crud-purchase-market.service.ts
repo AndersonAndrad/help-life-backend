@@ -13,4 +13,8 @@ export class CrudPurchaseMarketService {
   findOne(id: string): Promise<PurchaseMakert> {
     return this.purchaseMarketRepository.findOne(id);
   }
+
+  delete(id: string): Promise<void> {
+    return this.purchaseMarketRepository.delete(id);
+  }
 }

@@ -7,6 +7,8 @@ const PurchaseItemSchema = new Schema({
   quantity: { type: Number, required: true },
   unitPrice: { type: Number, required: true },
   totalPrice: { type: Number, required: true },
+  finished: { type: Boolean, required: true, default: false },
+  whishList: { type: Boolean, required: true, default: false },
 });
 
 const PurchaseMarketEmailSchema = new Schema({

@@ -25,4 +25,6 @@ export interface PurchaseMakert {
   totalPrice: number;
   items: PurchaseItem[];
   emails: PurchaseMarketEmail[];
+  finished: boolean;
+  whishList: boolean;
 }

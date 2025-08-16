@@ -27,4 +27,5 @@ export interface PurchaseMakert {
   emails: PurchaseMarketEmail[];
   finished: boolean;
   whishList: boolean;
+  budget: number;
 }

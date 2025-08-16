@@ -71,4 +71,9 @@ export class CreatePurchaseMarketDto {
   @IsBoolean()
   @IsOptional()
   whishList: boolean;
+
+  @IsNumber()
+  @IsPositive()
+  @IsOptional()
+  budget: number;
 }

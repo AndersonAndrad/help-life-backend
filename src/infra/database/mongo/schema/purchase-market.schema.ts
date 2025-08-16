@@ -9,6 +9,7 @@ const PurchaseItemSchema = new Schema({
   totalPrice: { type: Number, required: true },
   finished: { type: Boolean, required: true, default: false },
   whishList: { type: Boolean, required: true, default: false },
+  budget: { type: Number, required: true, default: 0 },
 });
 
 const PurchaseMarketEmailSchema = new Schema({

@@ -1,6 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { Permittion, PurchaseMakert } from 'src/core/types/purchase-market.interface';
+import { ResponsePagination } from 'src/core/types/request-response.interface';
 import { CreatePurchaseMarketDto } from '../dto/create-purchase-market.dto';
+import { SearchPurchaseMarketDto } from '../dto/search-purchase-market.dto';
 import { CrudPurchaseMarketService } from '../services/crud-purchase-market.service';
 import { PurchaseMarketAccessService } from '../services/purchase-market-access.service';
 
@@ -14,6 +16,11 @@ export class CrudPurchaseMarketController {
   @Post()
   create(@Body() purchaseMarket: CreatePurchaseMarketDto): Promise<PurchaseMakert> {
     return this.crudPurchaseMarketService.create(purchaseMarket);
+  }
+
+  @Get()
+  find(@Query() searchFilter: SearchPurchaseMarketDto): Promise<ResponsePagination<PurchaseMakert>> {
+    return this.crudPurchaseMarketService.find(searchFilter);
   }
 
   @Get(':purchaseMarketId')

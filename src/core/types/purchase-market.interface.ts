@@ -1,3 +1,5 @@
+import { RequestPagination } from './request-response.interface';
+
 export enum Permittion {
   VIEW = 'view',
   UPDATE = 'update',
@@ -28,4 +30,8 @@ export interface PurchaseMakert {
   finished: boolean;
   whishList: boolean;
   budget: number;
+}
+
+export interface SearchPurchaseMarketFilter extends RequestPagination {
+  email?: string;
 }
